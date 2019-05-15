@@ -4,7 +4,7 @@ include: ['tutorial', 'class']
 
 markdown: kramdown
 
-baseurl: plhamJ
+baseurl: /plhamJ
 
 kramdown:
   input: GFM
