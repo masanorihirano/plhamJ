@@ -1,10 +1,12 @@
 ---
 title: Readme
-Author: Masanori HIRano
+Author: Masanori HIRANO
 math: false
 ---
 
 # Preface
+
+**現在，このサイトはx10版からJava版に更新中です．未更新情報にはこのように注意書きをしてあります.**
 
 人工市場シミュレーションのためのソフトウェア **PlhamJ** （ぷらむじぇー）のドキュメントです．
 
@@ -28,53 +30,53 @@ PlhamJは[Plham](https://plham.github.io)のJava版として作成されまし�
 
 # Contents
 
-  * [プロジェクトの概要 (Project)](/Project)
-  * [インストールの仕方 (Install)](/Install)
-  * [ソフトウェアの特徴 (Platform)](/Platform)
-  * [用語について (Terminology)](/Terminology)
-  * [シミュレーションの流れ (Runner)](/class/Runner)
+  * [プロジェクトの概要 (Project)](Project)
+  * [インストールの仕方 (Install)](Install)
+  * [ソフトウェアの特徴 (Platform)](Platform)
+  * [用語について (Terminology)](Terminology)
+  * [シミュレーションの流れ (Runner)](class/Runner)
   * Tutorial
-    * [自分のプロジェクトを作る (YourProject)](/tutorial/YourProject)
-    * [アウトラインとガイドライン (Outline)](/tutorial/Outline)
+    * [自分のプロジェクトを作る (YourProject)](tutorial/YourProject)
+    * [アウトラインとガイドライン (Outline)](tutorial/Outline)
     * 事例: 単一銘柄の人工市場シミュレーション
-      * [CI2002Main](/tutorial/CI2002Main)
-      * [CI2002 UseCases](/tutorial/CI2002Main_UseCases)
+      * [CI2002Main](tutorial/CI2002Main)
+      * [CI2002 UseCases](tutorial/CI2002Main_UseCases)
     * 事例: 値幅制限規制
-      * [PriceLimitMain](/tutorial/PriceLimitMain)
-      * [PriceLimit UseCases](/tutorial/PriceLimitMain_UseCases)
+      * [PriceLimitMain](tutorial/PriceLimitMain)
+      * [PriceLimit UseCases](tutorial/PriceLimitMain_UseCases)
     * 事例: 取引停止規制と理論価格ショック
-      * [TradingHaltMain](/tutorial/TradingHaltMain)
-      * [TradingHalt UseCases](/tutorial/TradingHaltMain_UseCases)
+      * [TradingHaltMain](tutorial/TradingHaltMain)
+      * [TradingHalt UseCases](tutorial/TradingHaltMain_UseCases)
     * 事例: 誤発注型ショック（Fat finger）
-      * [FatFingerMain](/tutorial/FatFingerMain)
-      * [FatFinger UseCases](/tutorial/FatFingerMain_UseCases)
+      * [FatFingerMain](tutorial/FatFingerMain)
+      * [FatFinger UseCases](tutorial/FatFingerMain_UseCases)
     * 事例: 高頻度取引によるショック伝搬（FlashCrash）
-      * [ShockTransferMain](/tutorial/ShockTransferMain)
-      * [ShockTransfer UseCases](/tutorial/ShockTransferMain_UseCases)
+      * [ShockTransferMain](tutorial/ShockTransferMain)
+      * [ShockTransfer UseCases](tutorial/ShockTransferMain_UseCases)
     * 事例: ティックサイズと市場シェア競争（MarketShare）
-      * [MarketShareMain](/tutorial/MarketShareMain)
-      * [MarketShareMain UseCases01](/tutorial/MarketShareMain_UseCases01)
+      * [MarketShareMain](tutorial/MarketShareMain)
+      * [MarketShareMain UseCases01](tutorial/MarketShareMain_UseCases01)
     * 事例: マーケットメイカと市場シェア競争（MarketShare）
-      * [MarketShareMain UseCases02](/tutorial/MarketShareMain_UseCases02)
+      * [MarketShareMain UseCases02](tutorial/MarketShareMain_UseCases02)
     * 事例: ダークプール市場の影響（DarkPoolMain）
-      * [DarkPoolMain](/tutorial/DarkPoolMain)
-      * [DarkPoolMain UseCases](/tutorial/DarkPoolMain_UseCases)
+      * [DarkPoolMain](tutorial/DarkPoolMain)
+      * [DarkPoolMain UseCases](tutorial/DarkPoolMain_UseCases)
     * 事例: オプション市場とボラティリティ・スマイル
-      * [OptionMain](/tutorial/OptionMain)
-      * [OptionMain UseCases01](/tutorial/OptionMain_UseCases01)
-      * [OptionMain UseCases02](/tutorial/OptionMain_UseCases02)
+      * [OptionMain](tutorial/OptionMain)
+      * [OptionMain UseCases01](tutorial/OptionMain_UseCases01)
+      * [OptionMain UseCases02](tutorial/OptionMain_UseCases02)
     * 事例: 数百銘柄シミュレーションの並列実行
-      * [ParallelMain](/tutorial/ParallelMain)
+      * [ParallelMain](tutorial/ParallelMain)
     * 補足説明など
-      * [JSON for Main](/tutorial/JSON_for_Main)
+      * [JSON for Main](tutorial/JSON_for_Main)
   * Utilities
-	* [JSON](/class/JSON)
-	* [JSONRandom](/class/JSONRandom)
-    * [Fundamentals](/class/Fundamentals)
+	* [JSON](class/JSON)
+	* [JSONRandom](class/JSONRandom)
+    * [Fundamentals](class/Fundamentals)
   * Models
-    * [Market](/class/Market)
-    * [IndexMarket](/class/IndexMarket)
-	* [Agent](/class/Agent)
-	* [FCNAgent](/class/FCNAgent)
+    * [Market](class/Market)
+    * [IndexMarket](class/IndexMarket)
+	* [Agent](class/Agent)
+	* [FCNAgent](class/FCNAgent)
   * API (javadoc)
-    * [(link)](/api)
+    * [(link)](api)
