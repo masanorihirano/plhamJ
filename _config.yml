@@ -18,3 +18,4 @@ defaults:
     values:
       layout: default
       math: true
+theme: jekyll-theme-cayman
