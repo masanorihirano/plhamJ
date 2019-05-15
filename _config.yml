@@ -4,6 +4,8 @@ include: ['tutorial', 'class']
 
 markdown: kramdown
 
+baseurl: plhamJ
+
 kramdown:
   input: GFM
   syntax_highlighter_opts:
