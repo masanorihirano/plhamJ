@@ -42,7 +42,7 @@ $ Rscript samples/CI2002/plot.R output.dat output.png
 以下に output.png を示す．
 赤線は市場価格の時系列，黒線がファンダメンタル価格の時系列である．
 
-![small]({{base.url}}/tutorial/CI2002Main.figs/fig01.png)
+![small]({{site.baseurl}}/tutorial/CI2002Main.figs/fig01.png)
 
 
 
@@ -85,7 +85,7 @@ $ Rscript samples/CI2002/plot.R output.dat output.png
 赤線は市場価格の時系列，黒線がファンダメンタル価格の時系列である．
 問.1 の結果と比較すると，市場価格がファンタメンタル価格付近で小さく変動しており，ファンダメンタル重視の影響が強くなっていることがわかる．
 
-![small]({{base.url}}/tutorial/CI2002Main.figs/fig02.png)
+![small]({{site.baseurl}}/tutorial/CI2002Main.figs/fig02.png)
 
 
 
@@ -118,6 +118,6 @@ $ Rscript samples/CI2002/plot.R output.dat output.png
 赤線は市場価格の時系列，黒線がファンダメンタル価格の時系列である．
 問.1，問.2 の結果と比較すると，市場価格の時系列がより長期的なトレンドをもつためファンダメンタル価格への回帰頻度が少なくなり，チャート重視型の影響が強くなっていることがわかる．
 
-![small]({{base.url}}/tutorial/CI2002Main.figs/fig03.png)
+![small]({{site.baseurl}}/tutorial/CI2002Main.figs/fig03.png)
 
 
