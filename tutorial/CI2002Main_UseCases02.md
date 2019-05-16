@@ -45,10 +45,8 @@ math: true
 コンパイルは以下の手順で行う．
 
 ```
-$ x10c++ samples/CI2002/CI2002Main.x10
+$ javac samples/CI2002/CI2002Main.java
 ```
-
-コンパイルに成功すると実行ファイル `a.out` が生成される．
 
 次に，シミュレーションを実行する．
 前述の変更点に加えて，`CI2002/config.json` の主要なパラメータをまとめる．

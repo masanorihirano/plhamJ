@@ -6,8 +6,6 @@ math: false
 
 # CI2002Main UseCases
 
-**現在，このページはx10版からJava版に更新中です．古い情報を含みます．**
-
 本記事では，[tutorial/CI2002Main](CI2002Main) で解説したプログラムを使い，いくつかのパラメータを変えて，実際にシミュレーションを行う．
 
 
@@ -22,10 +20,8 @@ math: false
 コンパイルは以下の手順で行う．
 
 ```
-$ x10c++ samples/CI2002/CI2002Main.x10
+$ javac samples/CI2002/CI2002Main.java
 ```
-
-コンパイルに成功すると実行ファイル `a.out` が生成される．
 
 次に，シミュレーションを実行する．
 `CI2002/config.json` の主要なパラメータをまとめる．
@@ -39,14 +35,14 @@ $ x10c++ samples/CI2002/CI2002Main.x10
 以下の手順でグラフを描画する（出力ファイルは output.png）．
 
 ```
-$ ./a.out samples/CI2002/config.json >output.dat
+$ java samples/CI2002/CI2002Main samples/CI2002/config.json >output.dat
 $ Rscript samples/CI2002/plot.R output.dat output.png
 ```
 
 以下に output.png を示す．
 赤線は市場価格の時系列，黒線がファンダメンタル価格の時系列である．
 
-![small](/tutorial/CI2002Main.figs/fig01.png)
+![small]({{base.url}}/tutorial/CI2002Main.figs/fig01.png)
 
 
 
@@ -81,7 +77,7 @@ $ Rscript samples/CI2002/plot.R output.dat output.png
 その上で，以下の手順でグラフを描画した（出力ファイルは output.png）．
 
 ```
-$ ./a.out samples/CI2002/config.json >output.dat
+$ java samples/CI2002/CI2002Main samples/CI2002/config.json >output.dat
 $ Rscript samples/CI2002/plot.R output.dat output.png
 ```
 
@@ -89,7 +85,7 @@ $ Rscript samples/CI2002/plot.R output.dat output.png
 赤線は市場価格の時系列，黒線がファンダメンタル価格の時系列である．
 問.1 の結果と比較すると，市場価格がファンタメンタル価格付近で小さく変動しており，ファンダメンタル重視の影響が強くなっていることがわかる．
 
-![small](/tutorial/CI2002Main.figs/fig02.png)
+![small]({{base.url}}/tutorial/CI2002Main.figs/fig02.png)
 
 
 
@@ -114,7 +110,7 @@ $ Rscript samples/CI2002/plot.R output.dat output.png
 その上で，以下の手順でグラフを描画した（出力ファイルは output.png）．
 
 ```
-$ ./a.out samples/CI2002/config.json >output.dat
+$ java samples/CI2002/CI2002Main samples/CI2002/config.json >output.dat
 $ Rscript samples/CI2002/plot.R output.dat output.png
 ```
 
@@ -122,6 +118,6 @@ $ Rscript samples/CI2002/plot.R output.dat output.png
 赤線は市場価格の時系列，黒線がファンダメンタル価格の時系列である．
 問.1，問.2 の結果と比較すると，市場価格の時系列がより長期的なトレンドをもつためファンダメンタル価格への回帰頻度が少なくなり，チャート重視型の影響が強くなっていることがわかる．
 
-![small](/tutorial/CI2002Main.figs/fig03.png)
+![small]({{base.url}}/tutorial/CI2002Main.figs/fig03.png)
 
 
