@@ -6,8 +6,6 @@ math: true
 
 # CI2002Main UseCases02
 
-**現在，このページはx10版からJava版に更新中です．古い情報を含みます．**
-
 本記事では，[tutorial/CI2002Main](CI2002Main) で解説したプログラムを使い，いくつかのパラメータを変えて，実際にシミュレーションを行う．
 とくに，ファットテールやボラティリティ・クラスタリングと呼ばれる価格時系列がもつ統計的性質を調べる．
 
@@ -60,7 +58,7 @@ $ javac samples/CI2002/CI2002Main.java
 まず，シミュレーションを実行する．
 
 ```
-$ ./a.out samples/CI2002/config.json >output.dat
+$ java samples/CI2002/CI2002Main samples/CI2002/config.json >output.dat
 ```
 
 以下の手順でファットテールのグラフを描画する（出力ファイルは fattail.png）．
@@ -81,14 +79,14 @@ $ Rscript samples/CI2002/volcluster.R output.dat volcluster.png
 もし利益率が正規分布に従うならば，赤点は黒線と重なるはずである．
 しかし，分布の裾でわずかに乖離しており，正規分布に従わないことが示唆される．
 
-![small](/tutorial/CI2002Main.figs/fig04a.png)
+![small]({{site.baseurl}}/tutorial/CI2002Main.figs/fig04a.png)
 
 次に，volcluster.png を示す．
 図は利益率の絶対値の自己相関プロットで，横軸は時間ラグである．
 図から，自己相関はラグが大きくなるにつれ比較的早く減衰することがわかる（問.5 と比較してほしい）．
 これは価格時系列が長期的依存性をそれほどもって**いない**ことを示している．
 
-![small](/tutorial/CI2002Main.figs/fig04b.png)
+![small]({{site.baseurl}}/tutorial/CI2002Main.figs/fig04b.png)
 
 ファットテールにおける分布の裾（大きな価格変動）や，ボラティリティ・クラスタリングにおける長期的自己相関は，市場に参加するチャート重視型の割合が多いほど観察されやすいことが知られている．
 
@@ -112,7 +110,7 @@ $ Rscript samples/CI2002/volcluster.R output.dat volcluster.png
 まず，シミュレーションを実行する．
 
 ```
-$ ./a.out samples/CI2002/config.json >output.dat
+$ java samples/CI2002/CI2002Main samples/CI2002/config.json >output.dat
 ```
 
 以下の手順でファットテールのグラフを描画する（出力ファイルは fattail.png）．
@@ -132,12 +130,12 @@ $ Rscript samples/CI2002/volcluster.R output.dat volcluster.png
 図では分布の裾を強調するため，縦軸は対数軸になっている．
 問.4 のグラフと比較してわかるとおり，利益率の分布の裾がより分厚くなり，正規分布からの逸脱は一段と顕著になっている．
 
-![small](/tutorial/CI2002Main.figs/fig05a.png)
+![small]({{site.baseurl}}/tutorial/CI2002Main.figs/fig05a.png)
 
 次に，volcluster.png を示す．
 図は利益率の絶対値の自己相関プロットで，横軸は時間ラグである．
 問.4 のグラフと比較すると，時間ラグが大きくなっても自己相関は大きく維持されている．
 これは価格時系列が強い長期的依存性をもって**いる**ことを示している．
 
-![small](/tutorial/CI2002Main.figs/fig05b.png)
+![small]({{site.baseurl}}/tutorial/CI2002Main.figs/fig05b.png)
 

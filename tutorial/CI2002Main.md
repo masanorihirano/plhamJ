@@ -18,9 +18,9 @@ math: false
 
 関連するファイル：
 
-  * `samples/CI2002/CI2002Main.x10`
-  * `plham/agent/FCNAgent.x10`
-  * `plham/Market.x10`
+  * `samples/CI2002/CI2002Main.java`
+  * `plham/agent/FCNAgent.java`
+  * `plham/Market.java`
 
 
 ## Components of this simulation
@@ -49,8 +49,8 @@ math: false
 ## Compile and run
 
 ```
-$ x10c++ samples/CI2002/CI2002Main.x10
-$ ./a.out samples/CI2002/config.json
+$ javac samples/CI2002/CI2002Main.java
+$ java samples/CI2002/CI2002Main samples/CI2002/config.json
 ```
 
 
@@ -69,35 +69,35 @@ Chiarella & Iori (2002) のモデルは
 
 本ソフトウェアを使う場合，上記の機能を実現するマーケットおよびエージェントはそれぞれ次のクラスに既に実装されており，ユーザはこれを利用できる．
 
-  * [plham.Market](/class/Market)
-  * [plham.agent.FCNAgent](/class/FCNAgent)
+  * [plham.Market]({{site.baseurl}}/class/Market)
+  * [plham.agent.FCNAgent]({{site.baseutl}}/class/FCNAgent)
 
 以下では `FCNAgent` の実装を概観し，エージェントクラス作成のポイントを押さえる．
 意思決定の方法は原著 Chiarella & Iori (2002) や鳥居・中川・和泉 (2015) を参照してほしい．
-また，本記事で用いる `Market` や `FCNAgent` をどのように X10 で実装したかは部分的には [`Market`](/class/Market) や [`FCNAgent`](/class/FCNAgent) で解説されているが，直接コードを確認してほしい．
-自分で新しいエージェントクラスを作成するときには，原著論文と X10 プログラムを見比べると参考になるだろう．
+また，本記事で用いる `Market` や `FCNAgent` をどのように java で実装したかは部分的には [`Market`]{{site.baseurl}}(/class/Market) や [`FCNAgent`]({{base.siteurl}}/class/FCNAgent) で解説されているが，直接コードを確認してほしい．
+自分で新しいエージェントクラスを作成するときには，原著論文と java プログラムを見比べると参考になるだろう．
 
 
 ## Market
 
 `Market` クラスは以下のメソッドを含む．
-Market クラスは連続ダブルオークション（ザラバ方式）で注文を処理する（詳しくは[こちら](/class/Market)）．
+Market クラスは連続ダブルオークション（ザラバ方式）で注文を処理する（詳しくは[こちら]({{base.siteurl}}/class/Market)）．
 
-```x10
-// plham/Market.x10
+```java
+// plham/Market.java
 public class Market {
 
-    public def handleOrders(orders:List[Order]) {}       // 注文の処理（約定）
-    public def handleOrder(order:Order) {}               // 注文の処理（約定）
+    public void handleOrders(List<Order> orders) {}       // 注文の処理（約定）
+    public void handleOrder(Order order){}               // 注文の処理（約定）
 
-    public def getTime():Long {}                         // ステップ時間の取得
+    public long getTime() {}                         // ステップ時間の取得
 
-    public def getPrice(t:Long):Double {}                // ステップ t の市場価格
-    public def getFundamentalPrice(t:Long):Double {}     // ステップ t の理論価格
+    public double getPrice(long t) {}                // ステップ t の市場価格
+    public double getFundamentalPrice(long t) {}     // ステップ t の理論価格
 
-    public def getBestBuyPrice();     // 買い気配値（最新の値のみ）
-    public def getBestSellPrice();    // 売り気配値（最新の値のみ）
-    public def getMidPrice();         // 仲値（最新の値のみ）
+    public double getBestBuyPrice()    // 買い気配値（最新の値のみ）
+    public double getBestSellPrice()    // 売り気配値（最新の値のみ）
+    public double getMidPrice()        // 仲値（最新の値のみ）
 }
 ```
 
@@ -114,20 +114,20 @@ public class Market {
 `FCNAgent` クラスは次のような構造をもつ．
 `FCNAgent` クラスは Chiarella & Iori (2002) 型の意思決定を実装する（詳しくは[こちら](/class/FCNAgent)）．
 
-```x10
-// plham/agent/FCNAgent.x10
+```java
+// plham/agent/FCNAgent.java
 public class FCNAgent extends Agent {
 
-    public var fundamentalWeight:Double;    // 理論価格分析
-    public var chartWeight:Double;          // 時系列分析
-    public var noiseWeight:Double;          // ノイズ
-    public var isChartFollowing:Boolean;
-    public var fundamentalMeanReversion:Double;
-    public var timeWindowSize:Long;
-    public var noiseScale:Double;
-    public var orderMargin:Double;
+    public double fundamentalWeight;    // 理論価格分析
+    public double chartWeight;          // 時系列分析
+    public double noiseWeight;          // ノイズ
+    public double noiseScale;
+    public long timeWindowSize;
+    public double orderMargin;
+    public boolean isChartFollowing = false;
+    public long meanReversionTime;
 
-    public def submitOrders(market:Market):List[Order] {}    // 注文の意思決定
+    public List<Order> submitOrders(Market market) {}    // 注文の意思決定
 }
 ```
 
@@ -141,22 +141,24 @@ public class FCNAgent extends Agent {
 これらの頭文字をとって FCN エージェントと呼ぶ．
 エージェントの注文の決定は以下のメソッドに実装する．
 
-  * `submitOrders(List[Market]):List[Order]`
+  * `public List<Order> submitOrders(List<Market> markets)`
 
-`submitOrders(List[Market])` は `Market` のリストを受けとり，`Order` のリストを返す．
-FCN エージェントは単一銘柄しか取引しないので，`FCNAgent.x10` では次のように定義されている．
+`public List<Order> submitOrders(List<Market> markets)` は `Market` のリストを受けとり，`Order` のリストを返す．
+FCN エージェントは単一銘柄しか取引しないので，`FCNAgent.java` では次のように定義されている．
 
-```x10
-// plham/Agent.x10
-public def submitOrders(markets:List[Market]):List[Order] {
-    val orders = new ArrayList[Order]();
-    for (market in markets) {
-        orders.addAll(this.submitOrders(market));
+```java
+// plham/agent/FCNAgent.java
+public List<Order> submitOrders(List<Market> markets) {
+    List<Order> orders = new ArrayList<Order>();
+    for (Market market : markets) {
+        if (this.isMarketAccessible(market)) {
+            orders.addAll(this.submitOrders(market));
+        }
     }
     return orders;
 }
 
-public def submitOrders(market:Market):List[Order] {
+public List<Order> submitOrders(Market market) {
     /* Chiarella & Iori (2002) */
 }
 ```
@@ -174,62 +176,55 @@ public def submitOrders(market:Market):List[Order] {
 
 まず，`CI2002Main` は次のような構造をもつ．
 
-```x10
-// samples/CI2002/CI2002Main.x10
+```java
+// samples/CI2002/CI2002Main.java
 public class CI2002Main extends Main {
 
-    public static def main(args:Rail[String]) {
-        new SequentialRunner(new CI2002Main()).run(args);
+    public static void main(String[] args) {
+        final CI2002Main sim = new CI2002Main();
+        FCNAgent.register(sim);
+        Market.register(sim);
+        final SequentialRunner<CI2002Main> runner = new SequentialRunner<CI2002Main>(
+                sim);
+        runner.run(args);
     }
-
-    public def createMarkets(json:JSON.Value):List[Market] {}
-
-    public def createAgents(json:JSON.Value):List[Agent] {}
 }
 ```
 
-主要なメソッドは `createMarkets(JSON.Value)` と `createAgents(JSON.Value)` であり，いずれもスーパークラス `Main` で定義されており，JSON ファイルをもとにシミュレーションモデルを構築する過程で呼び出される．
-ユーザに課された責任は `createMarkets()` と `createAgents()` をオーバーライドすることで，JSON と連携し，エージェントやマーケットをインスタンス化することである．
-
+主要なメソッドは `createMarkets(~)` と `createAgents(~)` であり，いずれもスーパークラス `Simulator` で定義されており，JSON ファイルをもとにシミュレーションモデルを構築する過程で呼び出される．
 
 ### createMarkets()
 
-まずは `createMarkets()` を見てみよう．
+まずは `Market` の `setup` を見てみよう．
 Chiarella & Iori (2002) のマーケットモデルは `Market` に実装済みなのでこれを利用している．
 
-```x10
-// samples/CI2002/CI2002Main.x10
-public def createMarkets(json:JSON.Value):List[Market] {
-    val random = new JSONRandom(getRandom());
-    val markets = new ArrayList[Market]();
-    if (json("class").equals("Market")) {
-        val market = new Market();
-        setupMarket(market, json, random);
-        markets.add(market);
+```java
+// plham/Market.java
+public Market setup(JSON.Value json/*, Simulator sim */) {
+    JSONRandom jsonRandom = new JSONRandom(getRandom());
+    if (json.get("tickSize") == null) { // " tick-size <= 0.0 means no
+                                        // tick size.
+        setTickSize(-1.0);
+    } else {
+        setTickSize(jsonRandom.nextRandom(json.get("tickSize")));
     }
-    return markets;
-}
-```
-
-具体的に，Market の初期設定は `setupMarket()` メソッドを呼び出している．
-
-```x10
-// samples/CI2002/CI2002Main.x10
-public def setupMarket(market:Market, json:JSON.Value, random:JSONRandom) {
-    market.setTickSize(random.nextRandom(json("tickSize", "-1.0"))); // " tick-size <= 0.0 means no tick size.
-    market.setInitialMarketPrice(random.nextRandom(json("marketPrice")));
-    market.setInitialFundamentalPrice(random.nextRandom(json("marketPrice")));
-    market.setOutstandingShares(random.nextRandom(json("outstandingShares")) as Long);
+    setInitialMarketPrice(jsonRandom.nextRandom(json.get("marketPrice")));
+    setInitialFundamentalPrice(jsonRandom.nextRandom(json
+            .get("marketPrice")));
+    setFundamentalVolatility(jsonRandom.nextRandom(json.getOrElse(
+            "fundamentalVolatility", "0.0")));
+    setOutstandingShares(new Double(jsonRandom.nextRandom(json
+            .get("outstandingShares"))).longValue());		return this;
 }
 ```
 
 各所でみられる `json(key)` は JSON ファイルで定義された key-value ペアを取りだす操作である．
-上記のコードでは，[Market の属性](/class/Market) の初期値を JSON から読み込み，設定している．
-JSON 上で乱数分布を指定する記法を可能にするため，`JSONRandom#nextRandom()` を経由して初期値を設定している（詳しくは [こちら](/class/JSONRandom)）．
+上記のコードでは，[Market の属性]({{site.baseurl}}/class/Market) の初期値を JSON から読み込み，設定している．
+JSON 上で乱数分布を指定する記法を可能にするため，`jsonRandom.nextRandom()` を経由して初期値を設定している（詳しくは [こちら]({{site.baseurl}}/class/JSONRandom)）．
 
 `createMarkets()` の引数で与えられる `json:JSON.Value` は key `"Market"` に対応した value，すなわち `{ "class": "Market",... }` を格納した JSON.Value オブジェクトである．
 以下に示すのはマーケットのプロパティに関する JSON ファイルの一部である．
-X1０ コード（上記 `setupMarket()` メソッド）との対応関係が読みとれるだろう．
+java コード（上記 `setup()` メソッド）との対応関係が読みとれるだろう．
 
 ```json
 // samples/CI2002/config.json
@@ -242,7 +237,7 @@ X1０ コード（上記 `setupMarket()` メソッド）との対応関係が読
 ```
 
 `Main` は JSON ファイルに関していくつかの制約を課しているが，それ以外ではユーザは自由に JSON の key 名を定めてよい．
-JSON の詳細は[こちら](/tutorial/JSON_for_Main)を参照してほしい．
+JSON の詳細は[こちら]({{site.baseurl}}/tutorial/JSON_for_Main)を参照してほしい．
 
 
 ### createAgents()
