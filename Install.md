@@ -41,16 +41,18 @@ $ java samples/CI2002/CI2002Main samples/CI2002/config.json > output.dat   # 実
 $ Rscript samples/CI2002/plot.R output.dat output.png                      # 価格時系列をプロット
 ```
 
-## [Option2] Run sample programs from intelliJ
+## [Option2] Run sample programs from IntelliJ
 
-**Under construction**
-
-Project Structurで
- - Modules > source　で，plhamJのフォルダーごとsourceに指定する
- - Libraries で，plhamJ > lib > x10.jar と plhamJ > plham を指定
-が必要です．(outフォルダーの指定，javaの指定などは，通常のintelliJの使用方法と変わりません)
-
-実行時に，configurationsの編集も必要です．Run/Debug Program argumentsに `samples/CI2002/config.json` を指定してください．
-
-現時点で，上記の設定をしても，赤くエラーが表示されてしまう場所があります．それでも問題なく実行できるので，実行してください．
-エラーが表示されない設定を確認中です．
+ 1. IntelliJで落としてきたplhamJのディレクトリーを開く
+ 2. File > Project Structure を開く
+ 3. Project タブで Project SDK を指定する
+ 4. plhamJ 直下に out フォルダーを作成し， Project タブで Project compiler output でそのフォルダ０を指定する
+ 5. Modules タブの source を開き， プロジェクトディレクトリ(plhamJ)を sourceに指定する
+ 6. Project Structure の画面を OK で終了する
+ 7. samples/CI2002/CI2002Main.java (動かしたいプログラムで良い) を開く
+ 8. `public class CI2002Main extends Main {` の左の緑の▶︎を開き，Runする
+ 9. Buildが走り，エラーが発生するのをみる．
+ 10. 右上の緑の▶︎(Run)の左の所に"CI2002Main"と出ているはずなので，それをクリックし， Edit configurationsを押す
+ 11. Program arguments に `samples/CI2002/config.json` を入れて，OKを押す
+ 12. もう一度右上の緑の▶︎(Run)から実行
+ 13. 下のコンソールに結果が表示されるのを確認できます
