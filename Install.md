@@ -8,8 +8,8 @@ math: false
 
 ## Install Java
 
-Java を使用するため，Java をインストールし，環境変数 `JAVA_HOME` を設定しておく必要がある．
-また，コマンドで実行するためには ant が必要となる．
+Java を使用するため，Java をインストール (linux の場合は openjdk-11-jdkなど)し，環境変数 `JAVA_HOME` を設定しておく必要がある．
+また，plahmJのjarパッケージを作りたい場合には ant が必要となる．(通常は必要ない)
 IntelliJでも実行することが可能であるので，その場合は，IntelliJをダウンロードする
 
 ## Download from GitHub
