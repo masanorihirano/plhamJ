@@ -6,10 +6,8 @@ math: false
 
 # Runner & Simulator
 
-**現在，このページはx10版からJava版に更新中です．古い情報を含みます．**
-
 本記事ではシミュレーションに関する処理の基本的な流れ（処理単位の組み合わせ方）を解説する．
-本ソフトウェア Plham では，人工市場モデル（simulation model）と計算実行モデル（execution model）を区別するが（考え方については[こちら](/Platform)），この流れ（処理単位の組み合わせ方）を定義するのが計算実行モデルである．
+本ソフトウェア Plham では，人工市場モデル（simulation model）と計算実行モデル（execution model）を区別するが（考え方については[こちら](../Platform)），この流れ（処理単位の組み合わせ方）を定義するのが計算実行モデルである．
 本記事では，人工市場モデルと計算実行モデルの相互作用についても解説する．
 
 
@@ -28,48 +26,48 @@ math: false
   + JSON ファイル読み込み: <br>
     `JSON.parse(configFile)`
   + ファンダメンタルの初期化: <br>
-    `Main#createFundamentals()`
+    `Main.createFundamentals()`
   + マーケットの初期化: <br>
-    `Main#createAllMarkets()` → `Main#createMarkets()`
+    `Main.createAllMarkets()` → `Main.createMarkets()`
   + エージェントの初期化: <br>
-    `Main#createAllAgents()` → `Main#createAgents()`
+    `Main.createAllAgents()` → `Main.createAgents()`
   + イベントの初期化: <br>
-    `Main#createAllEvents()` → `Main#createEvents()`
+    `Main.createAllEvents()` → `Main.createEvents()`
     <br><br>
-  + `Main#beginSimulation()`
+  + `Main.beginSimulation()`
   + 各セッション `s` ごとに，
-    + `Main#beginSession()`
+    + `Main.beginSession()`
     + 各ステップ `t` ごとに，
       + イベントの状態を更新する（最初）
       + エージェントが注文を提出する: <br>
-        `Agent#submitOrders()`
+        `Agent.submitOrders()`
       + マーケットが注文を処理する: <br>
-        `Market#handleOrders()`
+        `Market.handleOrders()`
       + マーケットの価格・状態を更新する
       + データを出力する: <br>
-        `Main#print()`
+        `Main.print()`
       + イベントの状態を更新する（最後）
       + 次のステップに移る: <br>
         `t = t + 1`
-    + `Main#endSession()`
-  + `Main#endSimulation()`
+    + `Main.endSession()`
+  + `Main.endSimulation()`
 
 ユーザが自らのシミュレーションを開発するうえで記憶しておくべきは，
 
-  * `Main#createMarkets()`
-  * `Main#createAgents()`
-  * `Main#createEvents()`
-  * `Main#print()`
+  * `Main.createMarkets()`
+  * `Main.createAgents()`
+  * `Main.createEvents()`
+  * `Main.print()`
 
 といったメソッドであろう．
 
 これらのメソッドは上記の順番で呼び出されるため，先に呼びだされ生成されたインスタンスについては後のメソッドからアクセスできる．
-たとえば，`Main#createMarkets()` は `Main#createAgents()` より先に呼び出されるので，`Main#createAgents()` 内部ではマーケットのインスタンスにアクセスできる（逆はできない）．
+たとえば，`Main.createMarkets()` は `Main.createAgents()` より先に呼び出されるので，`Main.createAgents()` 内部ではマーケットのインスタンスにアクセスできる（逆はできない）．
 各メソッドのオーバーライドの方法についてはチュートリアルで解説している．
 
-上に示されるように `Main` で定義された（接頭辞 `Main#`）さまざまなメソッドが呼び出されている．
+上に示されるように `Main` で定義された（接頭辞 `Main.`）さまざまなメソッドが呼び出されている．
 計算実行モデルによるが，並列実行モデルではこれらの実行内容がすべて並列的に行われる場合もある．
-とくに，エージェントの意思決定 `submitOrders()` とマーケットの注文処理 `handleOrders()` は並列実行時の要となる部分なので，[別の記事](/Platform)で述べた「情報遅延」を伴う可能性が高い．
+とくに，エージェントの意思決定 `submitOrders()` とマーケットの注文処理 `handleOrders()` は並列実行時の要となる部分なので，[別の記事](../Platform)で述べた「情報遅延」を伴う可能性が高い．
 
 **補足**
 イベントとは金融ショックや金融規制など，何らかの条件を引き金として発動する事象をさす．
@@ -85,11 +83,15 @@ math: false
 以下のコードは典型的な `main()` メソッドの記述である．
 人工市場モデルと計算実行モデルがどのように組み合わせられるかを示している．
 
-```x10
+```java
 public class CI2002Main extends Main {
 
-	public static def main(args:Rail[String]) {
-		new SequentialRunner(new CI2002Main()).run(args);
+	public static void main(String[] args) {
+    final CI2002Main sim = new CI2002Main();
+		FCNAgent.register(sim);
+		Market.register(sim);
+		final SequentialRunner<CI2002Main> runner = new SequentialRunner<CI2002Main>(sim);
+		runner.run(args);
 	}
 }
 ```
