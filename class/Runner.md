@@ -1,6 +1,6 @@
 ---
 title: Runner & Simulator
-author: Takuma Torii
+author: Takuma Torii + Masanori HIRANO
 math: false
 ---
 
