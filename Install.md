@@ -35,7 +35,6 @@ $ git clone https://github.com/plham/plhamJ.git    # HTTPS を使う場合
 
 ```
 $ cd plhamJ
-$ ant
 $ javac samples/CI2002/CI2002Main.java                                     # C++ 経由でコンパイル
 $ java samples/CI2002/CI2002Main samples/CI2002/config.json > output.dat   # 実行出力を output.dat に保存
 $ Rscript samples/CI2002/plot.R output.dat output.png                      # 価格時系列をプロット
