@@ -9,7 +9,7 @@ math: false
 ## Install Java
 
 Java を使用するため，Java をインストール (linux の場合は openjdk-11-jdkなど)し，環境変数 `JAVA_HOME` を設定しておく必要がある．
-また，plahmJのjarパッケージを作りたい場合には ant が必要となる．(通常は必要ない)
+また，plahmJのjarパッケージを作りたい場合には旧バージョンでは ant が，新バージョンでは maven が必要となる．
 IntelliJでも実行することが可能であるので，その場合は，IntelliJをダウンロードする
 
 ## Download from GitHub
@@ -26,6 +26,75 @@ $ git clone https://github.com/plham/plhamJ.git    # HTTPS を使う場合
 [githubページ](https://github.com/plham/plhamJ)からダウンロードして，解凍するのでも構わない．
 
 
+# plhamJ v??? (new version)
+## [Option1] Run programs from command line
+
+先ほど `git clone` を実行したフォルダから，
+
+```
+$ cd plhamJ
+$ mvn package
+$ java -cp target/plhamj-x.x.x-SNAPSHOT-jar-with-dependencies.jar plham.samples.CI2002.CI2002Main samples/src/test/resources/CI2002/config.json 10 > output.dat
+$ Rscript samples/src/main/resources/CI2002/plot.R output.dat output.png
+```
+`x.x.x`は生成されたものを自分で確認してください．
+
+Windows(pwsh/cmd)の場合はパスの書き方が若干異なります
+```
+$ java -cp .\target\plhamj-0.0.1-SNAPSHOT-jar-with-dependencies.jar plham.samples.CI2002.CI2002Main .\samples\src\test\resources\CI2002\config.json 10 > output.dat
+$ Rscript .\samples\src\main\resources\CI2002\plot.R output.dat output.png
+```
+
+なお，自分でコードを作成して，以下の通りにフォルダーを作ったとします．
+```
+WorkingDirectory
+└─MyPackage
+  └─MyMain.java
+```
+
+このとき， `MyMain.java` のプリアンブルでは，
+```
+package MyPackage;
+```
+と記載していることとします．
+
+この時のコンパイルと，実行方法は以下のようになります．
+```
+$ javac -cp ${path-to-jar-file-above} MyPackage/MyMain.java
+$ java -cp .:${path-to-jar-file-above}  MyPackage.MyMain [args]
+```
+
+windows(pwsh/cmd)の場合は，以下のようになります．
+```
+$ javac -cp ${path-to-jar-file-above} MyPackage/MyMain.java
+$ java -cp ".;${path-to-jar-file-above}"  MyPackage.MyMain [args]
+```
+
+## [Option2] Run programs from IntelliJ
+
+まず，サンプルプログラムを動かしたい場合には，以下の通りにします．(あくまで一例．)
+ 1. IntelliJで落としてきたplhamJのディレクトリーを開く
+ 2. Eclipse projectで開くか，maven projectとして開くか聞かれるので，mavenを選ぶ．
+ 3. File > Project Structure を開く
+ 4. Project タブで Project SDK を指定する
+ 5. samples/src/main/java/plham/samples/CI2002/CI2002Main.java (動かしたいプログラムで良い) を開く
+ 6. `public class CI2002Main extends Main {` の左の緑の▶︎を開き，Runする
+ 7. Buildが走り，エラーが発生するのをみる．
+ 8. 右上の緑の▶︎(Run)の左の所に"CI2002Main"と出ているはずなので，それをクリックし， Edit configurationsを押す
+ 9. Program arguments に `samples/src/test/resources/CI2002/config.json` を入れて，OKを押す
+ 10. もう一度右上の緑の▶︎(Run)から実行
+ 11. 下のコンソールに結果が表示されるのを確認できます
+
+次に，自分でプログラムを作りたい場合には，
+intelliJで通常通りプログラム作成後，
+ 1. File > Project Structure を開く
+ 2. Project タブで Project SDK を指定する
+ 3. plhamJ 直下に out フォルダーを作成し， Project タブで Project compiler output でそのフォルダ０を指定する
+ 4. Libraries タブで + マークを開き， [Option1]の `mvn package` で作成されたjarファイルか，github上のreleaseに添付のjar fileをインポートする
+ 5. インポートするサブモジュールの選択画面が出たら全てを選ぶ(samplesはいらなければ含まなくてもよい)
+
+
+# initial version
 ## [Option1] Run sample programs from command line
 
 本ソフトウェアは人工市場シミュレーションの研究例をサンプルコードをして含む．
